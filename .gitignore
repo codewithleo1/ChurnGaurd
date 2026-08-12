@@ -8,3 +8,7 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Data (versioned with DVC)
+data/raw/
+data/processed/
