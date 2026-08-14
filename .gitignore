@@ -9,8 +9,8 @@ wheels/
 # Virtual environments
 .venv
 
-# Data (versioned with DVC)
-data/raw/
-data/processed/
-# Jupyter checkpoints
-.ipynb_checkpoints/
+# Data (versioned with DVC — ignore data files, track .dvc pointers)
+data/raw/*
+data/processed/*
+!data/raw/*.dvc
+!data/processed/*.dvc
