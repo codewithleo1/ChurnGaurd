@@ -12,3 +12,5 @@ wheels/
 # Data (versioned with DVC)
 data/raw/
 data/processed/
+# Jupyter checkpoints
+.ipynb_checkpoints/
