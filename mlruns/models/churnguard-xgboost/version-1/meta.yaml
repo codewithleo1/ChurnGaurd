@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1786772653622
+current_stage: None
+description: null
+last_updated_timestamp: 1786772653622
+name: churnguard-xgboost
+run_id: 7e0f71cd66ae4f3f945d25a46c74e1b4
+run_link: null
+source: file:C:/Users/suraj/Documents/Projects/MLOps/ChurnGaurd/mlruns/214404278720403892/7e0f71cd66ae4f3f945d25a46c74e1b4/artifacts/model
+status: READY
+status_message: null
+storage_location: file:C:/Users/suraj/Documents/Projects/MLOps/ChurnGaurd/mlruns/214404278720403892/7e0f71cd66ae4f3f945d25a46c74e1b4/artifacts/model
+user_id: null
+version: 1

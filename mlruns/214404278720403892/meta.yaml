@@ -1,0 +1,6 @@
+artifact_location: file:C:/Users/suraj/Documents/Projects/MLOps/ChurnGaurd/mlruns/214404278720403892
+creation_time: 1786772535714
+experiment_id: '214404278720403892'
+last_update_time: 1786772535714
+lifecycle_stage: active
+name: churnguard-training

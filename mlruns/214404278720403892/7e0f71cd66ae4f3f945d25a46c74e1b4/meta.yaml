@@ -1,0 +1,15 @@
+artifact_uri: file:C:/Users/suraj/Documents/Projects/MLOps/ChurnGaurd/mlruns/214404278720403892/7e0f71cd66ae4f3f945d25a46c74e1b4/artifacts
+end_time: 1786772655125
+entry_point_name: ''
+experiment_id: '214404278720403892'
+lifecycle_stage: active
+run_id: 7e0f71cd66ae4f3f945d25a46c74e1b4
+run_name: glamorous-chimp-845
+run_uuid: 7e0f71cd66ae4f3f945d25a46c74e1b4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1786772551493
+status: 3
+tags: []
+user_id: suraj
