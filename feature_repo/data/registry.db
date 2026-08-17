@@ -1,69 +1,0 @@
-
-V
-8
-customerA telecom customer"
-customerIDJ
-churnguard
-ÏáŠÔø‘¾bÏáŠÔø‘¾b
-?
-!
-__dummy"
-__dummy_idJ
-churnguard
-ÏáŠÔø‘¾bÏáŠÔø‘¾b1"$2bc973e2-e740-42ad-997a-47fbc07d3386*ÚâŠÔÀ–2¤
-Í
-customer_features
-churnguardcustomer"
-
-tenure"
-MonthlyCharges"
-TotalCharges"
-Contract"
-InternetService"
-TechSupport"
-PaymentMethod"
-SeniorCitizen"
-Partner"
-
-Dependents*
-team
-churnguard*
-modelxgboost-churn2€†°–:©event_timestamp*createdZ data/customer_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢customer_stats_source’¢âŠÔğ¨š"¢âŠÔğ¨š@b
-
-customerID’latestR
-ÏáŠÔø‘¾bÚâŠÔÀ–
-€ŞÂ¬€‹Ò»
-€ŞÂ¬€‹Ò»
-€ŞÂ¬€®×»0R§
-¤
-,feast.infra.online_stores.sqlite.SqliteTable"t
-TC:\Users\suraj\Documents\Projects\MLOps\ChurnGaurd\feature_repo\data\online_store.dbchurnguard_customer_featuresb´event_timestamp*createdZ data/customer_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢customer_stats_sourceª
-churnguard’ÏáŠÔïÁ:"ÏáŠÔø‘¾bŠN
-0
-
-churnguard"Customer churn prediction features
-ÏáŠÔïÁ:ÏáŠÔïÁ:’Ï
-Ì
-customer_features
-churnguard"feature_view*é
-Ê
-customer_features
-churnguardcustomer"
-
-tenure"
-MonthlyCharges"
-TotalCharges"
-Contract"
-InternetService"
-TechSupport"
-PaymentMethod"
-SeniorCitizen"
-Partner"
-
-Dependents*
-team
-churnguard*
-modelxgboost-churn2€ÎÚ:§event_timestamp*createdZ data/customer_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢customer_stats_source’ÏáŠÔïÁ:"ÏáŠÔø‘¾b@b
-
-customerID’latest
-ÏáŠÔø‘¾bÏáŠÔø‘¾b2ÏáŠÔøÔûbB$fab27eae-1d63-43ba-bc1d-5861c6ab691f
