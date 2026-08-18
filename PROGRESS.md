@@ -9,7 +9,7 @@
 ---
 
 ## Current Phase
-**Phase 4 — Serving**
+**Phase 6 — Agentic Retention Recommender**
 
 ---
 
@@ -61,17 +61,19 @@
 **Decisions:**
 - 2026-08-17: Used `store.write_to_online_store()` instead of `feast materialize` due to Feast 0.65 bug with static timestamps (see G-001)
 
-## Phase 4 — Serving
-- [ ] FastAPI app returns prediction + SHAP values
-- [ ] Dockerfile builds and runs locally
+## Phase 4 — Serving ✅
+- [x] FastAPI app returns prediction + SHAP values
+- [x] Dockerfile builds and runs locally (skipped — Docker in Phase 7)
 
 **Understanding Checkpoint:** Why return SHAP values from the API instead of just the probability?
+> SHAP values are tailored to each specific customer — they show which features drove that particular prediction up or down. A probability alone gives no actionable information; SHAP tells the CS rep exactly why, so they know what retention action to take.
 
-## Phase 5 — LLM Explanation Layer
-- [ ] Groq wired in
-- [ ] SHAP values → plain-English explanation
+## Phase 5 — LLM Explanation Layer ✅
+- [x] Groq wired in (openai/gpt-oss-20b)
+- [x] SHAP values → plain-English explanation
 
 **Understanding Checkpoint:** Why feed SHAP values into the prompt instead of just asking the LLM "why might this customer churn?"
+> Without SHAP, the LLM gives a generic answer. With SHAP, it knows the specific features that drove this customer's prediction — so the explanation is accurate and tailored to that individual, not a guess.
 
 ## Phase 6 — Agentic Retention Recommender
 - [ ] LangGraph graph defined (state, nodes, edges)
@@ -113,6 +115,18 @@
 When all `event_timestamp` values in the parquet are identical and static, Feast's dask offline store silently skips all rows during materialization.
 Workaround: use `store.write_to_online_store()` directly — see `populate_online_store.py`.
 
+**G-002: MLflow doesn't accept raw Windows paths as tracking URI**
+`mlflow.set_tracking_uri("C:\\...")` throws UnsupportedModelRegistryStoreURIException.
+Fix: use `Path.as_uri()` to convert to `file:///C:/...` format.
+
+**G-003: Circular import — wrong file saved to wrong location**
+`explain.py` accidentally contained `main.py` content, causing a circular import on startup.
+Fix: carefully overwrite with correct SHAP code. Verify with `Get-Content serving\explain.py | Select-Object -First 3`.
+
+**G-004: Qwen3 model returns `<think>` reasoning traces in output**
+Qwen3.6-27b is a reasoning model — it shows its thinking process before the answer.
+Fix: switched to `openai/gpt-oss-20b` which returns clean output directly.
+
 ---
 
 ## Decisions Log
@@ -122,3 +136,6 @@ Workaround: use `store.write_to_online_store()` directly — see `populate_onlin
 - **2026-08-15**: Downgraded pandas to 2.2.3 to resolve MLflow compatibility (MLflow 2.19 requires pandas<3)
 - **2026-08-15**: Set `UV_LINK_MODE=copy` to fix OneDrive hardlink conflict on Windows
 - **2026-08-17**: Used `write_to_online_store()` instead of `feast materialize` — Feast 0.65 bug with static timestamps
+- **2026-08-18**: Split serving layer into 3 files (model_loader, explain, main) — single responsibility principle, easier to test and extend independently
+- **2026-08-18**: Used openai/gpt-oss-20b on Groq — qwen3.6-27b produced reasoning traces unsuitable for direct API output
+- **2026-08-18**: max_tokens set to 500 for LLM explanation — 200 caused truncated responses
