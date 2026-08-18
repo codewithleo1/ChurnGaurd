@@ -9,15 +9,17 @@ Endpoints:
 Run with: uv run uvicorn serving.main:app --reload
 """
 
-import pandas as pd
 from contextlib import asynccontextmanager
+
+import pandas as pd
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
 from feast import FeatureStore
+from pydantic import BaseModel
 from sklearn.preprocessing import LabelEncoder
 
-from serving.model_loader import load_model, get_feature_columns
 from serving.explain import compute_shap_values, shap_to_text
+from serving.llm_explain import get_llm_explanation
+from serving.model_loader import get_feature_columns, load_model
 
 # ── STARTUP / SHUTDOWN ────────────────────────────────────────────────────────
 # FastAPI lifespan: code before yield runs at startup, after yield at shutdown.
@@ -62,6 +64,7 @@ class PredictResponse(BaseModel):
     churn_prediction: bool            # True = likely to churn
     top_shap_features: dict           # {feature: shap_value} top 5
     shap_explanation: str             # human-readable SHAP summary
+    llm_explanation: str              # LMM summerizes the prediction with SHAP values
 
 
 # ── ROUTES ────────────────────────────────────────────────────────────────────
@@ -99,7 +102,7 @@ def predict(request: PredictRequest):
             features=feast_features,
             entity_rows=[{"customerID": request.customer_id}],
         ).to_dict()
-    except Exception as e:
+    except Exception as e:      # noqa: BLE001
         raise HTTPException(status_code=404, detail=f"Customer not found: {e}")
 
     # Check we got data back
@@ -149,10 +152,17 @@ def predict(request: PredictRequest):
     top_shap = compute_shap_values(model, feature_df)
     shap_text = shap_to_text(top_shap)
 
+    llm_text = get_llm_explanation(
+        customer_id=request.customer_id,
+        churn_probability=churn_prob,
+        shap_explanation=shap_text,
+    )
+
     return PredictResponse(
         customer_id=request.customer_id,
         churn_probability=round(churn_prob, 4),
         churn_prediction=churn_pred,
         top_shap_features=top_shap,
         shap_explanation=shap_text,
+        llm_explanation=llm_text,
     )

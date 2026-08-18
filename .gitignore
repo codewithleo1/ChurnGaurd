@@ -17,3 +17,6 @@ data/processed/*
 # Feast runtime files
 feature_repo/data/*.db
 feature_repo/data/driver_*.parquet
+
+# Environment variables
+.env

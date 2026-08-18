@@ -4,8 +4,8 @@ Computes SHAP values for a prediction and returns the top contributing features.
 These values are passed to the LLM explanation layer in Phase 5.
 """
 
-import shap
 import pandas as pd
+import shap
 
 
 def compute_shap_values(model, feature_df: pd.DataFrame, top_n: int = 5) -> dict:
